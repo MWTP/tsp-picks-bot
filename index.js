@@ -1,16 +1,14 @@
 const Discord = require('discord.js');
+require('dotenv').config();
 const bot = new Discord.Client();
-
-const token = 'NzU1NTI0NjQzNjU3MzUxMjE4.X2EjKA.VLqlnLFV76WB63qsDjX3wE9DrGs';
-
-const PREFIX = '!p';
+const prefix = process.env.PREFIX;
 
 bot.on('ready', () => {
     console.log('This bot is online');
 });
 
 bot.on('message', message => {
-    let args = message.content.substring(PREFIX.length).split(" ");
+    let args = message.content.substring(prefix.length).split(" ");
 
     switch(args[0]){
         case 'picks':
@@ -30,4 +28,4 @@ bot.on('message', message => {
     }
 });
 
-bot.login(process.env.BOT_TOKEN);
+bot.login(process.env.CLIENT_TOKEN);
