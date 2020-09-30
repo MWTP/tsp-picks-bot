@@ -8,24 +8,19 @@ bot.on('ready', () => {
 });
 
 bot.on('message', message => {
-    let args = message.content.substring(prefix.length).split(" ");
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    switch(args[0]){
-        case 'picks':
-            const embed = new Discord.MessageEmbed()
-            .setColor(0xcdff05)
-            .setTitle('NFL Week 2 Slate')
-            .setAuthor('TSP Sports Pick\'s', 'https://i.ibb.co/NSqWPZ1/tspyellow2stroke.png', 'https://discord.js.org')
-            .setThumbnail('https://i.ibb.co/NSqWPZ1/tspyellow2stroke.png')
-            .addField('TR', 'CIN +3', true)
-            .addField('SUN', 'WAS +1\nPHI +3\nDET +2', true)
-            .addField('MON', 'WAS +1', true)
-            .setImage('https://i.ibb.co/NSqWPZ1/tspyellow2stroke.png')
-            .setTimestamp()
-            .setFooter(`- TSP`, 'https://i.ibb.co/NSqWPZ1/tspyellow2stroke.png');
-            message.channel.send(embed);
-            break;
-    }
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+
+    if (command === 'embed') {
+		const embed = new Discord.MessageEmbed()
+		.setColor(0x79E621)
+		.setDescription(args.join(" "))
+		.setAuthor('TSP Sports Pick\'s', 'https://i.ibb.co/NSqWPZ1/tspyellow2stroke.png')
+		.setThumbnail('https://i.ibb.co/NSqWPZ1/tspyellow2stroke.png')
+        message.channel.send(embed);
+	}
 });
 
 bot.login(process.env.CLIENT_TOKEN);
